@@ -43,8 +43,8 @@ export const bugDecorationType = vscode.window.createTextEditorDecorationType({
 });
 
 export const issueDecorationType = vscode.window.createTextEditorDecorationType({
-    backgroundColor: '#c8e6c9',
+    backgroundColor: '#922b21',
     color: '#388e3c',
-    border: '1px solid rgba(139, 195, 74, 0.8)',
+    border: '1px solid rgba(236, 112, 99, 0.8)',
     borderRadius: '6px',
 });
