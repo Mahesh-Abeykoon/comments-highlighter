@@ -9,6 +9,7 @@ import {
     issueDecorationType 
 } from './decoration-styles';
 import { updateDecorations } from './comment-highlighter';
+import { todoRegex } from './regex';
 
 export function activate(context: vscode.ExtensionContext) {
     console.log('TODO Highlighter is now active!');
@@ -22,8 +23,6 @@ export function activate(context: vscode.ExtensionContext) {
         BUG: bugDecorationType,
         ISSUE: issueDecorationType,
     };
-
-    const todoRegex = /\/\/\s*(TODO|FIXME|NOTE|HACK|BUG|ISSUE|TASK)\s*:?.*/gi;
 
     const updateEditorDecorations = (editor: vscode.TextEditor | undefined) => {
         if (editor) {
