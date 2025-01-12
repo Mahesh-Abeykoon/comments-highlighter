@@ -1,26 +1,40 @@
 {
   "name": "comments-highlighter",
   "displayName": "Comments Highlighter",
-  "publisher": "Mahesh Abeykoon",
+  "publisher": "mahesh-abeykoon",
   "description": "Boosts productivity by visually emphasizing TODOs, FIXMEs, and other actionable comments in your source files.",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "engines": {
     "vscode": "^1.96.0"
   },
   "categories": [
-    "Other"
+    "Text Editor"
   ],
  "activationEvents": [
     "onLanguage:javascript",
     "onLanguage:typescript",
-    "onLanguage:python"
+    "onLanguage:python",
+    "onLanguage:csharp",
+    "onLanguage:java",
+    "onLanguage:c",
+    "onLanguage:c++",
+    "onLanguage:swift",
+    "onLanguage:go",
+    "onLanguage:php",
+    "onLanguage:rust",
+    "onLanguage:kotlin",
+    "onLanguage:ruby",
+    "onLanguage:sh",
+    "onLanguage:perl",
+    "onLanguage:r",
+    "onLanguage:lua"
 ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "todoHighlighter.helloWorld",
-            "title": "Activate TODO Highlighter"
+        "command": "commentsHighlighter.helloWorld",
+            "title": "Activate Comments Highlighter"
       }
     ]
   },
