@@ -1,7 +1,7 @@
 {
   "name": "comments-highlighter",
   "displayName": "Comments Highlighter",
-  "publisher": "mahesh-abeykoon",
+  "publisher": "Mahesh Abeykoon",
   "description": "Boosts productivity by visually emphasizing TODOs, FIXMEs, and other actionable comments in your source files.",
   "version": "0.0.2",
   "engines": {
@@ -26,7 +26,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mahesh-abeykoon/your-repository-name.git"
+    "url": "https://github.com/Mahesh-Abeykoon/comments-highlighter"
   },
   "icon": "image/icon.png",
   "license": "MIT",
