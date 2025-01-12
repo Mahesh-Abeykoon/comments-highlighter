@@ -1,1 +1,1 @@
-export const todoRegex = /\/\/\s*(TODO|FIXME|NOTE|HACK|BUG|ISSUE|TASK)\s*?.*/gi;
+export const todoRegex = /(\/\/|#)\s*(TODO|FIXME|NOTE|HACK|BUG|ISSUE|TASK)\s*?.*/gi;
