@@ -8,7 +8,7 @@
     "vscode": "^1.96.0"
   },
   "categories": [
-    "Text Editor"
+    "Other"
   ],
  "activationEvents": [
     "onLanguage:javascript",
