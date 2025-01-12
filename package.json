@@ -1,8 +1,9 @@
 {
-  "name": "todo-highlighter",
-  "displayName": "TODO Highlighter",
+  "name": "comments-highlighter",
+  "displayName": "Comments Highlighter",
+  "publisher": "Mahesh Abeykoon",
   "description": "Boosts productivity by visually emphasizing TODOs, FIXMEs, and other actionable comments in your source files.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.96.0"
   },
@@ -23,6 +24,12 @@
       }
     ]
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mahesh-Abeykoon/comments-highlighter"
+  },
+  "icon": "image/icon.png",
+  "license": "MIT",
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
