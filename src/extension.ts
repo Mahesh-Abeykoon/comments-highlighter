@@ -10,6 +10,10 @@ import {
 } from './decoration-styles';
 import { updateDecorations } from './comment-highlighter';
 import { todoRegex } from './regex';
+import { getWebviewContent } from './webview';
+import { extractComments } from './comment-utils';
+
+let panel: vscode.WebviewPanel | undefined = undefined;
 
 export function activate(context: vscode.ExtensionContext) {
     console.log('TODO Highlighter is now active!');
@@ -30,10 +34,48 @@ export function activate(context: vscode.ExtensionContext) {
         }
     };
 
-    // Attach event listeners with checks for active text editor
+    const statusBarButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 100);
+    statusBarButton.text = '$(comment) Highlights';
+    statusBarButton.command = 'commentsHighlighter.showCommentsSidebar';
+    statusBarButton.show();
+    context.subscriptions.push(statusBarButton);
+
+    vscode.commands.registerCommand('commentsHighlighter.showCommentsSidebar', () => {
+        const editor = vscode.window.activeTextEditor;
+        if (editor) {
+            const comments = extractComments(editor.document.getText(), editor.document);
+            if (panel && panel.visible) {
+                panel.webview.html = getWebviewContent(comments);
+                panel.reveal(vscode.ViewColumn.Beside);
+            } else {
+                panel = vscode.window.createWebviewPanel(
+                    'actionableComments',
+                    'Actionable Comments',
+                    vscode.ViewColumn.Beside,
+                    {
+                        enableScripts: true,
+                        retainContextWhenHidden: true,
+                    }
+                );
+
+                panel.webview.html = getWebviewContent(comments);
+                panel.onDidDispose(() => {
+                    panel = undefined;
+                });
+
+                panel.reveal(vscode.ViewColumn.Beside);
+            }
+        }
+    });
+
     vscode.workspace.onDidChangeTextDocument(() => {
         const editor = vscode.window.activeTextEditor;
-        updateEditorDecorations(editor);
+        if (editor) {
+            const comments = extractComments(editor.document.getText(), editor.document);
+            if (panel && panel.visible) {
+                panel.webview.html = getWebviewContent(comments);
+            }
+        }
     });
 
     vscode.window.onDidChangeActiveTextEditor((editor) => {
@@ -44,12 +86,6 @@ export function activate(context: vscode.ExtensionContext) {
         const editor = vscode.window.activeTextEditor;
         updateEditorDecorations(editor);
     });
-
-    let disposable = vscode.commands.registerCommand('todoHighlighter.helloWorld', () => {
-        vscode.window.showInformationMessage('TODO Highlighter is active!');
-    });
-
-    context.subscriptions.push(disposable);
 }
 
 export function deactivate() {}
