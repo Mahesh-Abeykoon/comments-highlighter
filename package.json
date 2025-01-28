@@ -3,7 +3,7 @@
   "displayName": "Comments Highlighter",
   "publisher": "mahesh-abeykoon",
   "description": "Boosts productivity by visually emphasizing TODOs, FIXMEs, and other actionable comments in your source files.",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "engines": {
     "vscode": "^1.96.0"
   },
@@ -33,10 +33,19 @@
   "contributes": {
     "commands": [
       {
-        "command": "commentsHighlighter.helloWorld",
-            "title": "Activate Comments Highlighter"
+        "command": "commentsHighlighter.showCommentsSidebar",
+        "title": "Show Actionable Comments Sidebar"
       }
-    ]
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "actionableComments",
+          "name": "Actionable Comments",
+          "when": "editorTextFocus"
+        }
+      ]
+    }
   },
   "repository": {
     "type": "git",
