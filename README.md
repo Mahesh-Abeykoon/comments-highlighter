@@ -6,7 +6,7 @@
 
 This is how your actionable comments will appear in the editor:
 
-![TODO Highlighter Example](image/0.0.2_screenshot.png)
+![TODO Highlighter Example](image/version_0.1.0.png)
 
 
 ## ✨ Features

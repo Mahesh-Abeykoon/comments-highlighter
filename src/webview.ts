@@ -1,6 +1,20 @@
 export function getWebviewContent(
     comments: { text: string; line: number; file: string }[],
 ): string {
+    if (!comments || comments.length === 0) {
+        return `<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Comments Highlighter</title>
+        </head>
+        <body>
+            <h1>No comments found</h1>
+        </body>
+        </html>`;
+    }
+    
     const fileName = comments[0]?.file || 'Unknown File';
     const totalComments = comments.length;
 
