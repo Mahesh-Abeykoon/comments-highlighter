@@ -14,6 +14,7 @@ import { getWebviewContent } from './webview';
 import { extractComments } from './comment-utils';
 
 let panel: vscode.WebviewPanel | undefined = undefined;
+let decorationTimeout: NodeJS.Timeout | undefined;
 
 export function activate(context: vscode.ExtensionContext) {
     console.log('TODO Highlighter is now active!');
@@ -35,7 +36,7 @@ export function activate(context: vscode.ExtensionContext) {
     };
 
     const statusBarButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 100);
-    statusBarButton.text = '$(comment) Highlights';
+    statusBarButton.text = '$(comment) Comments';
     statusBarButton.command = 'commentsHighlighter.showCommentsSidebar';
     statusBarButton.show();
     context.subscriptions.push(statusBarButton);
@@ -50,7 +51,7 @@ export function activate(context: vscode.ExtensionContext) {
             } else {
                 panel = vscode.window.createWebviewPanel(
                     'actionableComments',
-                    'Actionable Comments',
+                    'Comments Highlighter',
                     vscode.ViewColumn.Beside,
                     {
                         enableScripts: true,
@@ -72,13 +73,31 @@ export function activate(context: vscode.ExtensionContext) {
         const editor = vscode.window.activeTextEditor;
         if (editor) {
             const comments = extractComments(editor.document.getText(), editor.document);
+            
+            // Update the Webview content when comments change
             if (panel && panel.visible) {
                 panel.webview.html = getWebviewContent(comments);
             }
+
+            // Debounced update to avoid performance issues
+            if (decorationTimeout) {
+                clearTimeout(decorationTimeout);
+            }
+            // Apply decorations with a slight delay to improve performance
+            decorationTimeout = setTimeout(() => {
+                updateEditorDecorations(editor);
+            }, 200);
         }
     });
 
     vscode.window.onDidChangeActiveTextEditor((editor) => {
+        if (editor) {
+            const comments = extractComments(editor.document.getText(), editor.document);
+            // Update the Webview content when switching between open files
+            if (panel && panel.visible) {
+                panel.webview.html = getWebviewContent(comments);
+            }
+        }
         updateEditorDecorations(editor);
     });
 

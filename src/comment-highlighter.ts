@@ -1,31 +1,35 @@
 import * as vscode from 'vscode';
+export function updateDecorations(
+    editor: vscode.TextEditor, 
+    regex: RegExp, 
+    decorationTypes: Record<string, vscode.TextEditorDecorationType>
+) {
+    if (!editor) return;
 
-export function updateDecorations(editor: vscode.TextEditor, todoRegex: RegExp, decorationTypes: { [key: string]: vscode.TextEditorDecorationType }) {
     const text = editor.document.getText();
-    const decorations: { [key: string]: vscode.DecorationOptions[] } = {
+    const decorations: Record<string, vscode.DecorationOptions[]> = {
         TODO: [],
         FIXME: [],
         NOTE: [],
+        TASK: [],
         HACK: [],
         BUG: [],
         ISSUE: [],
-        TASK: [],
     };
 
     let match;
-    while ((match = todoRegex.exec(text))) {
-        const taskType = match[1];
+    while ((match = regex.exec(text))) {
         const startPos = editor.document.positionAt(match.index);
         const endPos = editor.document.positionAt(match.index + match[0].length);
+        const type = match[2]?.toUpperCase();
 
-        if (decorations[taskType]) {
-            decorations[taskType].push({
-                range: new vscode.Range(startPos, endPos),
-            });
+        if (decorations[type]) {
+            decorations[type].push({ range: new vscode.Range(startPos, endPos) });
         }
     }
 
-    Object.keys(decorations).forEach((taskType) => {
-        editor.setDecorations(decorationTypes[taskType], decorations[taskType]);
+    // Apply each decoration type separately
+    Object.keys(decorationTypes).forEach((key) => {
+        editor.setDecorations(decorationTypes[key], decorations[key] || []);
     });
 }

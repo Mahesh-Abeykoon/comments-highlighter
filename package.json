@@ -3,7 +3,7 @@
   "displayName": "Comments Highlighter",
   "publisher": "mahesh-abeykoon",
   "description": "Boosts productivity by visually emphasizing TODOs, FIXMEs, and other actionable comments in your source files.",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "engines": {
     "vscode": "^1.96.0"
   },
