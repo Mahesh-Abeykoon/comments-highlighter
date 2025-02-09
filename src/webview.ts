@@ -52,25 +52,25 @@ export function getWebviewContent(
             }
         </script>
     </head>
-    <body class="bg-gray-50 text-gray-800 font-sans p-6">
+    <body class="bg-gray-900 text-gray-800 font-sans p-6">
         <!-- Header -->
         <header class="mb-6 flex items-center gap-4">
             <div>
-                <h1 class="text-3xl font-bold text-blue-600 mb-2">Actionable Comments</h1>
+                <h1 class="text-3xl font-bold text-[#467083] mb-2">Comments Highlighter</h1>
                 <p class="text-gray-600 text-sm">Easily find and manage actionable comments in your code.</p>
             </div>
         </header>
 
         <!-- File Info -->
-        <section class="bg-blue-100 text-blue-700 p-4 rounded-lg mb-6">
+        <section class="bg-gray-600 text-[#d6dfe3] p-4 rounded-lg mb-6">
             <div class="flex justify-between items-center">
                 <div>
                     <strong>File:</strong> ${fileName}
                 </div>
                 <button
-                    class="text-blue-600 hover:text-blue-800 flex items-center"
+                    class="text-[#f8f9fc] hover:text-[#d5d9eb] flex items-center"
                     onclick="copyComment('${fileName}')">
-                    📋 Copy File Name
+                    📋 Copy
                 </button>
             </div>
             <div class="mt-2">
@@ -84,7 +84,7 @@ export function getWebviewContent(
                 id="searchInput"
                 type="text"
                 placeholder="Filter comments (e.g., TODO, FIX, BUG)..."
-                class="w-full p-3 border rounded-lg"
+                class="w-full p-3 border rounded-lg bg-[#363f72] text-[#d5d9eb]"
                 oninput="filterComments()"
             />
         </div>
@@ -98,9 +98,9 @@ export function getWebviewContent(
                     <a
                         href="#"
                         onclick="copyComment('${comment.text}'); return false;"
-                        class="text-blue-600 font-bold hover:underline flex-grow">
-                        <span class="text-gray-600">Line</span> ${comment.line + 1}: 
-                        <span class="text-green-500 font-medium">${comment.text}</span>
+                        class="text-[#6f909e] font-bold hover:underline flex-grow">
+                        <span class="text-[#467083]">Line</span> ${comment.line + 1}: 
+                        <span class="text-[#17b26a] font-medium">${comment.text}</span>
                     </a>
                 </li>
             `).join('')}
